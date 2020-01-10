@@ -14,8 +14,9 @@ class MessageTest < Minitest::Test
     assert_instance_of Message, @message
   end
 
-  # def test_text_can_be_split_into_arrays_of_4
-  #   assert_equal @message.split_text[0].length, 4
-  #
-  # end
+  def test_text_can_be_split_into_arrays_of_4
+    assert_equal @message.split_text[0].length, 4
+    assert_equal @message.split_text[1].length, 4
+    assert_equal @message.split_text[1].length, 4
+  end
 end
