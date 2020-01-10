@@ -15,9 +15,12 @@ class EnigmaTest < Minitest::Test
   end
 
   def test_offset_can_be_generated
-    assert_equal @enigma.offset("111111"), 4321
+    assert_equal @enigma.offset("111111"), ["4", "3", "2", "1"]
   end
 
+  # def test_shift_can_be_calculated
+  #
+  # end
   # def test_it_can_encript_a_message
   #
   # end
