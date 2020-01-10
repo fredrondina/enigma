@@ -18,8 +18,12 @@ class EnigmaTest < Minitest::Test
     assert_equal @enigma.offset("111111"), ["4", "3", "2", "1"]
   end
 
+  def test_key_array_can_be_generated
+    assert_equal @enigma.key_array_generator, ["98", "84", "45", "56"]
+  end
   # def test_shift_can_be_calculated
-  #
+  #     @enigma.offset("111111")
+  #     @enigma.shift
   # end
   # def test_it_can_encript_a_message
   #
