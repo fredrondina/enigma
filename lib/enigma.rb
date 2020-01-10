@@ -2,10 +2,13 @@ require 'pry'
 
 class Enigma
 
+  attr_reader :shift_key
+
   def initialize
     @offset = 0
     @key = 98456
     @key_array = []
+    @shift_key = []
   end
   #
   # def encrypt(message, key, date)
@@ -17,12 +20,11 @@ class Enigma
     # binding.pry
   end
 
-  # def shift
-  #   shift_key = []
-  #   shift_key << @offset.each_with_index do |offset, index|
-  #     binding.pry
-  #   end
-  # end
+  def shift
+    @key_array.each_with_index do |key, index|
+      @shift_key << (key.to_i + @offset[index].to_i)
+    end
+  end
 
   def key_array_generator
       @key.to_s.split(//).each_with_index do |key, index|

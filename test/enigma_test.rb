@@ -21,10 +21,14 @@ class EnigmaTest < Minitest::Test
   def test_key_array_can_be_generated
     assert_equal @enigma.key_array_generator, ["98", "84", "45", "56"]
   end
-  # def test_shift_can_be_calculated
-  #     @enigma.offset("111111")
-  #     @enigma.shift
-  # end
+
+  def test_shift_can_be_calculated
+      @enigma.offset("111111")
+      @enigma.key_array_generator
+      @enigma.shift
+      assert_equal @enigma.shift_key, [102, 87, 47, 57]
+  end
+
   # def test_it_can_encript_a_message
   #
   # end
