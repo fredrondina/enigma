@@ -1,4 +1,6 @@
 require 'pry'
+require_relative "../lib/message"
+
 
 class Enigma
 
@@ -9,11 +11,20 @@ class Enigma
     @key = 98456
     @key_array = []
     @shift_key = []
+    @coded_text = []
+    @rotate_helper = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p",
+"q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " "]
   end
   #
-  # def encrypt(message, key, date)
-  #
-  # end
+  def encrypt(message, shift)
+      message.split_text.each do |segment|
+        segment.each_with_index do |letter, index|
+          rotate_amount = (@shift_key[index] + @rotate_helper.index(letter))
+          @coded_text << @rotate_helper.rotate(rotate_amount).first
+        end
+    end
+    @coded_text.join
+  end
 
   def offset(date)
     @offset = (date.to_i * date.to_i).to_s[-4..-1].split(//)

@@ -30,7 +30,9 @@ class EnigmaTest < Minitest::Test
       assert_equal @enigma.shift_key, [102, 87, 47, 57]
   end
 
-  # def test_it_can_encript_a_message
-  #
-  # end
+  def test_it_can_encript_a_message
+    @enigma.offset("111111")
+    @enigma.key_array_generator
+    assert_equal @enigma.encrypt(@message, @enigma.shift), "nnbvuolcnklwuzy nfmruywdgheh"
+  end
 end
