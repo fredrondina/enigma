@@ -8,6 +8,7 @@ class EnigmaTest < Minitest::Test
 
   def setup
     @enigma = Enigma.new
+    @message = Message.new("This is test text to scamble")
   end
 
   def test_enigma_exists
