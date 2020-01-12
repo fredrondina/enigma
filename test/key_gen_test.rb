@@ -12,4 +12,8 @@ class KeyGenTest < Minitest::Test
   def test_key_exists
     assert_instance_of KeyGen, @key
   end
+
+  def test_key_can_generate_random_key
+    assert_equal @key.key.to_s.length, 5
+  end
 end
