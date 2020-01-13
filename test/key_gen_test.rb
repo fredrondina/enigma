@@ -14,10 +14,10 @@ class KeyGenTest < Minitest::Test
   end
 
   def test_key_can_generate_random_key
-    assert_equal @key.key.to_s.length, 5
+    assert_equal  5, @key.key.to_s.length
   end
 
   def test_keygen_can_get_todays_date
-    assert_equal @key.date.to_s.length, 6
+    assert_equal 6, @key.date.to_s.length
   end
 end
