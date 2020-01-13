@@ -19,9 +19,10 @@ class EnigmaTest < Minitest::Test
     assert_equal @enigma.offset("111111"), ["4", "3", "2", "1"]
   end
 
-  def test_key_array_can_be_generated
-    assert_equal @enigma.key_array_generator, ["98", "84", "45", "56"]
-  end
+  # def test_key_array_can_be_generated
+  #   @enigma.key = 98456
+  #   assert_equal @enigma.key_array_generator, ["98", "84", "45", "56"]
+  # end
 
   # def test_shift_can_be_calculated
   #     @enigma.offset("111111")
@@ -40,17 +41,25 @@ class EnigmaTest < Minitest::Test
      key: "02715",
      date: "040895"
    }
-    # binding.pry
     assert_equal expected, @enigma.encrypt("hello world", "02715", "040895")
   end
 
   def test_it_can_decript_a_message_and_return_a_hash
     expected = {
-     encryption: "hello world",
+     decryption: "hello world",
      key: "02715",
      date: "040895"
    }
-
     assert_equal expected, @enigma.decrypt("keder ohulw", "02715", "040895")
+  end
+
+  def test_encryption_can_encrypt_when_not_provided_key
+    refute_equal "hello world", @enigma.encrypt("hello world", "130120")[:encryption]
+    assert_equal 11, @enigma.encrypt("hello world", "130120")[:encryption].length
+  end
+
+  def test_encryption_can_encrypt_when_not_provided_key_or_date
+    refute_equal "hello world", @enigma.encrypt("hello world")[:encryption]
+    assert_equal 11, @enigma.encrypt("hello world")[:encryption].length
   end
 end
