@@ -57,4 +57,9 @@ class EnigmaTest < Minitest::Test
     refute_equal "hello world", @enigma.encrypt("hello world", "130120")[:encryption]
     assert_equal 11, @enigma.encrypt("hello world", "130120")[:encryption].length
   end
+
+  def test_encryption_can_encrypt_when_not_provided_key_or_date
+    refute_equal "hello world", @enigma.encrypt("hello world")[:encryption]
+    assert_equal 11, @enigma.encrypt("hello world")[:encryption].length
+  end
 end

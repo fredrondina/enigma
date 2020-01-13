@@ -16,9 +16,10 @@ class Enigma
     "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " "]
   end
   #
-  def encrypt(message, key=nil, date)
+  def encrypt(message, key=nil, date=nil)
       @coded_text = []
       key = KeyGen.new.key if key == nil
+      date = KeyGen.new.date if date == nil
       @key = key
       offset(date)
       shift
