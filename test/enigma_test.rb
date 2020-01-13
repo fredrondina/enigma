@@ -30,9 +30,17 @@ class EnigmaTest < Minitest::Test
   #     assert_equal @enigma.shift_key, [102, 87, 47, 57]
   # end
 
-  def test_it_can_encript_a_message
-    # @enigma.offset("111111")
-    # @enigma.key_array_generator
-    assert_equal @enigma.encrypt("abcdef", "98456", "121212"), "znyjcr"
+  # def test_it_can_encript_a_message
+  #   assert_equal @enigma.encrypt("abcdef", "98456", "121212"), "znyjcr"
+  # end
+
+  def test_it_can_encript_a_message_and_return_a_hash
+    expected = {
+     encryption: "keder ohulw",
+     key: "02715",
+     date: "040895"
+   }
+    # binding.pry
+    assert_equal expected, @enigma.encrypt("hello world", "02715", "040895")
   end
 end

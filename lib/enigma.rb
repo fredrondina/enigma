@@ -26,7 +26,7 @@ class Enigma
           @coded_text << @rotate_helper.rotate(rotate_amount).first
         end
     end
-    @coded_text.join
+   return  encryption_hash(@coded_text.join, key, date)
   end
 
   def offset(date)
@@ -50,5 +50,13 @@ class Enigma
 
   def split_text(message)
     split_text = message.downcase.split(//).each_slice(4).to_a
+  end
+
+  def encryption_hash(coded_message, key, date)
+    encryption_results = {}
+    encryption_results[:encryption] = coded_message.to_s
+    encryption_results[:key] = key.to_s
+    encryption_results[:date] = date.to_s
+    return encryption_results
   end
 end
