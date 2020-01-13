@@ -46,7 +46,7 @@ class EnigmaTest < Minitest::Test
 
   def test_it_can_decript_a_message_and_return_a_hash
     expected = {
-     encryption: "hello world",
+     decryption: "hello world",
      key: "02715",
      date: "040895"
    }

@@ -12,8 +12,8 @@ class Enigma
     @key_array = []
     @shift_key = []
     @coded_text = []
-    @rotate_helper = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p",
-"q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " "]
+    @rotate_helper = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k",
+    "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " "]
   end
   #
   def encrypt(message, key, date)
@@ -40,7 +40,7 @@ class Enigma
           @coded_text << @rotate_helper.rotate(rotate_amount).first
         end
     end
-   return  encryption_hash(@coded_text.join, key, date)
+   return  decryption_hash(@coded_text.join, key, date)
   end
 
   def offset(date)
@@ -73,4 +73,13 @@ class Enigma
     encryption_results[:date] = date.to_s
     return encryption_results
   end
+
+  def decryption_hash(coded_message, key, date)
+    decryption_results = {}
+    decryption_results[:decryption] = coded_message.to_s
+    decryption_results[:key] = key.to_s
+    decryption_results[:date] = date.to_s
+    return decryption_results
+  end
+
 end
