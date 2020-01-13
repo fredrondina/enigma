@@ -16,8 +16,11 @@ class Enigma
 "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " "]
   end
   #
-  def encrypt(message, shift)
-      message.split_text.each do |segment|
+  def encrypt(message, key, date)
+      @key = key
+      offset(date)
+      shift
+      split_text(message).each do |segment|
         segment.each_with_index do |letter, index|
           rotate_amount = (@shift_key[index] + @rotate_helper.index(letter))
           @coded_text << @rotate_helper.rotate(rotate_amount).first
@@ -32,6 +35,7 @@ class Enigma
   end
 
   def shift
+    key_array_generator
     @key_array.each_with_index do |key, index|
       @shift_key << (key.to_i + @offset[index].to_i)
     end
@@ -42,5 +46,9 @@ class Enigma
           return @key_array if @key_array.length == 4
             @key_array << (key + @key.to_s[index+1])
       end
+  end
+
+  def split_text(message)
+    split_text = message.downcase.split(//).each_slice(4).to_a
   end
 end
