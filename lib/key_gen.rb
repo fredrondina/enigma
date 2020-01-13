@@ -10,7 +10,11 @@ class KeyGen
   end
 
   def random_number
-    rand(0..99999)
+    rand_num = 0
+      until rand_num.to_s.length == 5
+        rand_num = rand(0..99999)
+      end
+    return rand_num
   end
 
   def todays_date
