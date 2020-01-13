@@ -1,6 +1,6 @@
 require 'pry'
 require_relative "../lib/message"
-
+require_relative "../lib/key_gen"
 
 class Enigma
 
@@ -8,7 +8,7 @@ class Enigma
 
   def initialize
     @offset = 0
-    @key = 98456
+    @key = 0
     @key_array = []
     @shift_key = []
     @coded_text = []
@@ -16,7 +16,9 @@ class Enigma
     "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " "]
   end
   #
-  def encrypt(message, key, date)
+  def encrypt(message, key=nil, date)
+      @coded_text = []
+      key = KeyGen.new.key if key == nil
       @key = key
       offset(date)
       shift
@@ -31,6 +33,7 @@ class Enigma
   end
 
   def decrypt(message, key, date)
+      @coded_text = []
       @key = key
       offset(date)
       shift
@@ -45,10 +48,10 @@ class Enigma
 
   def offset(date)
     @offset = (date.to_i * date.to_i).to_s[-4..-1].split(//)
-    # binding.pry
   end
 
   def shift
+    @shift_key = []
     key_array_generator
     @key_array.each_with_index do |key, index|
       @shift_key << (key.to_i + @offset[index].to_i)
@@ -56,6 +59,7 @@ class Enigma
   end
 
   def key_array_generator
+    @key_array = []
       @key.to_s.split(//).each_with_index do |key, index|
           return @key_array if @key_array.length == 4
             @key_array << (key + @key.to_s[index+1])
