@@ -23,16 +23,34 @@ class EnigmaTest < Minitest::Test
     assert_equal @enigma.key_array_generator, ["98", "84", "45", "56"]
   end
 
-  def test_shift_can_be_calculated
-      @enigma.offset("111111")
-      @enigma.key_array_generator
-      @enigma.shift
-      assert_equal @enigma.shift_key, [102, 87, 47, 57]
+  # def test_shift_can_be_calculated
+  #     @enigma.offset("111111")
+  #     @enigma.key_array_generator
+  #     @enigma.shift
+  #     assert_equal @enigma.shift_key, [102, 87, 47, 57]
+  # end
+
+  # def test_it_can_encript_a_message
+  #   assert_equal @enigma.encrypt("abcdef", "98456", "121212"), "znyjcr"
+  # end
+
+  def test_it_can_encript_a_message_and_return_a_hash
+    expected = {
+     encryption: "keder ohulw",
+     key: "02715",
+     date: "040895"
+   }
+    # binding.pry
+    assert_equal expected, @enigma.encrypt("hello world", "02715", "040895")
   end
 
-  def test_it_can_encript_a_message
-    @enigma.offset("111111")
-    @enigma.key_array_generator
-    assert_equal @enigma.encrypt(@message, @enigma.shift), "nnbvuolcnklwuzy nfmruywdgheh"
+  def test_it_can_decript_a_message_and_return_a_hash
+    expected = {
+     encryption: "hello world",
+     key: "02715",
+     date: "040895"
+   }
+
+    assert_equal expected, @enigma.decrypt("keder ohulw", "02715", "040895")
   end
 end
