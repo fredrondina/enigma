@@ -45,8 +45,12 @@ class Enigma
       shift
       split_text(message).each do |segment|
         segment.each_with_index do |letter, index|
-          rotate_amount = (@rotate_helper.index(letter) - @shift_key[index])
-          @coded_text << @rotate_helper.rotate(rotate_amount).first
+          if @special_characters.include?(letter)
+            @coded_text << letter
+          else
+            rotate_amount = (@rotate_helper.index(letter) - @shift_key[index])
+            @coded_text << @rotate_helper.rotate(rotate_amount).first
+          end
         end
     end
    return  decryption_hash(@coded_text.join, key, date)
