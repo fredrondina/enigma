@@ -59,7 +59,7 @@ class EnigmaTest < Minitest::Test
      key: "02715",
      date: "140120"
     }
-    assert_equal expected, @enigma.decrypt("keder ohulw", "02715")
+    assert_equal expected, @enigma.decrypt("nib udmcxpu", "02715")
   end
 
   def test_encryption_can_encrypt_when_not_provided_key
