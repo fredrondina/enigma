@@ -40,13 +40,21 @@ class EnigmaTest < Minitest::Test
     assert_equal expected, @enigma.encrypt("!,'.?", "02715", "040895")
   end
 
-  def test_it_can_encript_a_message_and_return_a_hash
+  def test_special_characters_are_not_changed_during_decryption
     expected = {
-     encryption: "keder ohulw",
+     decryption: "hello ?!",
      key: "02715",
      date: "040895"
    }
-    assert_equal expected, @enigma.encrypt("hello world", "02715", "040895")
+    assert_equal expected, @enigma.decrypt("keder ?!", "02715", "040895")
+  end
+  def test_it_can_encript_a_message_and_return_a_hash
+    expected = {
+     encryption: "keder ohulw!",
+     key: "02715",
+     date: "040895"
+   }
+    assert_equal expected, @enigma.encrypt("hello world!", "02715", "040895")
   end
 
   def test_it_can_decript_a_message_and_return_a_hash
