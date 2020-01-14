@@ -33,9 +33,10 @@ class Enigma
    return  encryption_hash(@coded_text.join, key, date)
   end
 
-  def decrypt(message, key, date)
+  def decrypt(message, key, date=nil)
       @coded_text = []
       @key = key
+      date = KeyGen.new.date if date == nil
       offset(date)
       shift
       split_text(message).each do |segment|
