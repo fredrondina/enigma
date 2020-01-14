@@ -1,6 +1,8 @@
 require 'pry'
 require 'minitest/autorun'
 require 'minitest/pride'
+require'simplecov'
+SimpleCov.start
 require_relative "../lib/key_gen"
 
 class KeyGenTest < Minitest::Test
