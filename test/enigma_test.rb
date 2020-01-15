@@ -18,12 +18,12 @@ class EnigmaTest < Minitest::Test
   end
 
   def test_offset_can_be_generated
-    assert_equal @enigma.calculate_offset"111111"), ["4", "3", "2", "1"]
+    assert_equal ["4", "3", "2", "1"], @enigma.calculate_offset("111111")
   end
 
   def test_key_array_can_be_generated
     @enigma.key = 98456
-    assert_equal @enigma.key_array_generator, ["98", "84", "45", "56"]
+    assert_equal ["98", "84", "45", "56"], @enigma.key_array_generator
   end
 
   def test_text_can_be_split_into_arrays_of_4
@@ -31,12 +31,12 @@ class EnigmaTest < Minitest::Test
 
   end
 
-  # def test_shift_can_be_calculated
-  #     @enigma.offset("111111")
-  #     @enigma.key_array_generator
-  #     @enigma.shift
-  #     assert_equal @enigma.shift_key, [102, 87, 47, 57]
-  # end
+  def test_shift_can_be_calculated
+      @enigma.calculate_offset("111111")
+      @enigma.key = "55555"
+      @enigma.shift
+      assert_equal [59, 58, 57, 56], @enigma.shift_key
+  end
 
   def test_special_characters_are_not_encrypted
     expected = {
