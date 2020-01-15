@@ -100,5 +100,4 @@ class Enigma
     decryption_results[:date] = date.to_s
     return decryption_results
   end
-
 end
