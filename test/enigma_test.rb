@@ -21,10 +21,17 @@ class EnigmaTest < Minitest::Test
     assert_equal @enigma.offset("111111"), ["4", "3", "2", "1"]
   end
 
-  # def test_key_array_can_be_generated
-  #   @enigma.key = 98456
-  #   assert_equal @enigma.key_array_generator, ["98", "84", "45", "56"]
+  def test_key_array_can_be_generated
+    @enigma.key = 98456
+    assert_equal @enigma.key_array_generator, ["98", "84", "45", "56"]
+  end
+
+  # def test_shift_key_can_be_generated
+  #   @offset = "123456"
+  #   @key = "12345"
+  #   binding.pry
   # end
+
 
   # def test_shift_can_be_calculated
   #     @enigma.offset("111111")

@@ -5,6 +5,7 @@ require_relative "../lib/key_gen"
 class Enigma
 
   attr_reader :shift_key
+  attr_accessor :key, :offset
 
   def initialize
     @offset = 0
