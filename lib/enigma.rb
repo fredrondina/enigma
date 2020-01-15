@@ -5,20 +5,27 @@ require_relative "../lib/key_gen"
 class Enigma
 
   attr_reader :shift_key
+  attr_accessor :key, :offset
 
   def initialize
     @offset = 0
     @key = 0
     @key_array = []
     @shift_key = []
-    @coded_text = []
-    @rotate_helper = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k",
-    "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " "]
-    @special_characters = ["!", ".", "?", "'", ","]
   end
-  #
+
+  def rotate_helper
+    ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k",
+    "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v",
+    "w", "x", "y", "z", " "]
+  end
+
+  def special_characters
+    ["!", ".", "?", "'", ","]
+  end
+
   def encrypt(message, key=nil, date=nil)
-      @coded_text = []
+      coded_text = []
       key = KeyGen.new.key if key == nil
       date = KeyGen.new.date if date == nil
       @key = key
@@ -26,34 +33,34 @@ class Enigma
       shift
       split_text(message).each do |segment|
         segment.each_with_index do |letter, index|
-          if @special_characters.include?(letter)
-            @coded_text << letter
+          if special_characters.include?(letter)
+            coded_text << letter
           else
-            rotate_amount = (@shift_key[index] + @rotate_helper.index(letter))
-            @coded_text << @rotate_helper.rotate(rotate_amount).first
+            rotate_amount = (@shift_key[index] + rotate_helper.index(letter))
+            coded_text << rotate_helper.rotate(rotate_amount).first
           end
         end
     end
-   return  encryption_hash(@coded_text.join, key, date)
+   return  encryption_hash(coded_text.join, key, date)
   end
 
   def decrypt(message, key, date=nil)
-      @coded_text = []
+      decoded_text = []
       @key = key
       date = KeyGen.new.date if date == nil
       offset(date)
       shift
       split_text(message).each do |segment|
         segment.each_with_index do |letter, index|
-          if @special_characters.include?(letter)
-            @coded_text << letter
+          if special_characters.include?(letter)
+            decoded_text << letter
           else
-            rotate_amount = (@rotate_helper.index(letter) - @shift_key[index])
-            @coded_text << @rotate_helper.rotate(rotate_amount).first
+            rotate_amount = (rotate_helper.index(letter) - @shift_key[index])
+            decoded_text << rotate_helper.rotate(rotate_amount).first
           end
         end
     end
-   return  decryption_hash(@coded_text.join, key, date)
+   return  decryption_hash(decoded_text.join, key, date)
   end
 
   def offset(date)
