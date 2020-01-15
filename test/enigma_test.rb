@@ -18,7 +18,7 @@ class EnigmaTest < Minitest::Test
   end
 
   def test_offset_can_be_generated
-    assert_equal @enigma.offset("111111"), ["4", "3", "2", "1"]
+    assert_equal @enigma.calculate_offset("111111"), ["4", "3", "2", "1"]
   end
 
   def test_key_array_can_be_generated
@@ -26,11 +26,6 @@ class EnigmaTest < Minitest::Test
     assert_equal @enigma.key_array_generator, ["98", "84", "45", "56"]
   end
 
-  # def test_shift_key_can_be_generated
-  #   @offset = "123456"
-  #   @key = "12345"
-  #   binding.pry
-  # end
   def test_text_can_be_split_into_arrays_of_4
     assert_includes @enigma.split_text("beepboop"), ["b", "e", "e", "p"]
 
@@ -82,7 +77,7 @@ class EnigmaTest < Minitest::Test
     expected = {
      decryption: "hello world",
      key: "02715",
-     date: "140120"
+     date: "150120"
     }
     assert_equal expected, @enigma.decrypt("nib udmcxpu", "02715")
   end

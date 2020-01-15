@@ -10,7 +10,6 @@ class Enigma
   def initialize
     @offset = 0
     @key = 0
-    @key_array = []
     @shift_key = []
   end
 
@@ -29,7 +28,7 @@ class Enigma
       key = KeyGen.new.key if key == nil
       date = KeyGen.new.date if date == nil
       @key = key
-      offset(date)
+      calculate_offset(date)
       shift
       split_text(message).each do |segment|
         segment.each_with_index do |letter, index|
@@ -48,7 +47,7 @@ class Enigma
       decoded_text = []
       @key = key
       date = KeyGen.new.date if date == nil
-      offset(date)
+      calculate_offset(date)
       shift
       split_text(message).each do |segment|
         segment.each_with_index do |letter, index|
@@ -63,23 +62,22 @@ class Enigma
    return  decryption_hash(decoded_text.join, key, date)
   end
 
-  def offset(date)
+  def calculate_offset(date)
     @offset = (date.to_i * date.to_i).to_s[-4..-1].split(//)
   end
 
   def shift
     @shift_key = []
-    key_array_generator
-    @key_array.each_with_index do |key, index|
+    key_array_generator.each_with_index do |key, index|
       @shift_key << (key.to_i + @offset[index].to_i)
     end
   end
 
   def key_array_generator
-    @key_array = []
+    key_array = []
       @key.to_s.split(//).each_with_index do |key, index|
-          return @key_array if @key_array.length == 4
-            @key_array << (key + @key.to_s[index+1])
+          return key_array if key_array.length == 4
+            key_array << (key + @key.to_s[index+1])
       end
   end
 
