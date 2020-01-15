@@ -18,7 +18,7 @@ class EnigmaTest < Minitest::Test
   end
 
   def test_offset_can_be_generated
-    assert_equal @enigma.calculate_offset("111111"), ["4", "3", "2", "1"]
+    assert_equal @enigma.calculate_offset"111111"), ["4", "3", "2", "1"]
   end
 
   def test_key_array_can_be_generated
