@@ -11,11 +11,18 @@ class Enigma
     @key = 0
     @key_array = []
     @shift_key = []
-    @rotate_helper = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k",
-    "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " "]
-    @special_characters = ["!", ".", "?", "'", ","]
   end
-  #
+
+  def rotate_helper
+    ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k",
+    "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v",
+    "w", "x", "y", "z", " "]
+  end
+
+  def special_characters
+    ["!", ".", "?", "'", ","]
+  end
+
   def encrypt(message, key=nil, date=nil)
       coded_text = []
       key = KeyGen.new.key if key == nil
@@ -25,11 +32,11 @@ class Enigma
       shift
       split_text(message).each do |segment|
         segment.each_with_index do |letter, index|
-          if @special_characters.include?(letter)
+          if special_characters.include?(letter)
             coded_text << letter
           else
-            rotate_amount = (@shift_key[index] + @rotate_helper.index(letter))
-            coded_text << @rotate_helper.rotate(rotate_amount).first
+            rotate_amount = (@shift_key[index] + rotate_helper.index(letter))
+            coded_text << rotate_helper.rotate(rotate_amount).first
           end
         end
     end
@@ -44,11 +51,11 @@ class Enigma
       shift
       split_text(message).each do |segment|
         segment.each_with_index do |letter, index|
-          if @special_characters.include?(letter)
+          if special_characters.include?(letter)
             decoded_text << letter
           else
-            rotate_amount = (@rotate_helper.index(letter) - @shift_key[index])
-            decoded_text << @rotate_helper.rotate(rotate_amount).first
+            rotate_amount = (rotate_helper.index(letter) - @shift_key[index])
+            decoded_text << rotate_helper.rotate(rotate_amount).first
           end
         end
     end
