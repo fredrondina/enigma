@@ -31,7 +31,10 @@ class EnigmaTest < Minitest::Test
   #   @key = "12345"
   #   binding.pry
   # end
+  def test_text_can_be_split_into_arrays_of_4
+    assert_includes @enigma.split_text("beepboop"), ["b", "e", "e", "p"]
 
+  end
 
   # def test_shift_can_be_calculated
   #     @enigma.offset("111111")
